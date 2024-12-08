@@ -18,6 +18,15 @@ function TrainingRecords() {
         const formData = new FormData(event.currentTarget);
         const date = new Date(formData.get('date') as string);
         const distance = Number(formData.get('distance'));
+
+        if (date > new Date() || isNaN(date.getTime())) {
+            alert('Введите корректную дату');
+            return;
+        }
+        if (isNaN(distance) || distance <= 0) {
+            alert('Введите корректно число');
+            return;
+        }
         step.stepList.addStepByDate({ date, distance });
         setForm({
             ...step,
@@ -25,7 +34,6 @@ function TrainingRecords() {
         });
         event.currentTarget.reset();
     }
-
 
 
     return (
