@@ -2,26 +2,31 @@ import React from 'react'
 
 import { StepList } from '../repository/StepList';
 import classes from './TrainingRecords.module.css'
+import TrainingList from './TrainingList';
 
 function TrainingRecords() {
 
-    const stepList = new StepList();
-
-    // const [step, setForm] = React.useState(
-    //     {
-    //         date: Date.now(),
-    //         distance: 0,
-    //     })
+    const [step, setForm] = React.useState(
+        {
+            date: Date.now(),
+            distance: 0,
+            stepList: new StepList(),
+        })
 
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         const formData = new FormData(event.currentTarget);
         const date = new Date(formData.get('date') as string);
         const distance = Number(formData.get('distance'));
-        stepList.addStep({ date, distance });
-        console.log(stepList.getSortedByDate());
+        step.stepList.addStepByDate({ date, distance });
+        setForm({
+            ...step,
+            stepList: step.stepList,
+        });
         event.currentTarget.reset();
     }
+
+
 
     return (
         <div className={classes["container"]}>
@@ -36,10 +41,9 @@ function TrainingRecords() {
             </form>
 
             <div className={classes["training-records"]}>
-
+                <TrainingList stepList={step.stepList} />
             </div>
         </div>
     )
 }
-
 export default TrainingRecords

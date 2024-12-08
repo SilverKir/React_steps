@@ -7,6 +7,17 @@ export class StepList implements StepRepositoryInterface {
         step: Step;
     }> = [];
 
+    addStepByDate(step: Step) {
+        const index = this.getStepIndexByDate(step.date);
+        if (index === -1) {
+            this.addStep(step);
+        } else {
+            const dictance = this.stepList[index].step.distance + step.distance;
+            this.stepList[index].step.distance = dictance;
+        }
+    }
+
+
     addStep(step: Step) {
         let newId: number;
 
@@ -14,6 +25,7 @@ export class StepList implements StepRepositoryInterface {
             newId = 0;
         } else {
             newId = this.getStepList()[this.stepList.length - 1].id + 1;
+
         }
 
         this.stepList.push({
@@ -21,6 +33,8 @@ export class StepList implements StepRepositoryInterface {
             step: step
         });
     };
+
+
 
     getStepList(): Array<{ id: number; step: Step; }> {
         return this.stepList.sort((a, b) => a.id - b.id);
@@ -34,16 +48,35 @@ export class StepList implements StepRepositoryInterface {
         id: number;
         step: Step;
     } {
-        return this.stepList[id];
-    };
+        const element = this.stepList.find(el => el.id === id);
+        if (element === undefined) {
+            throw new Error('Step not found');
+        } else {
+            return element
+        }
+    }
+
+    getStepIndexByDate(date: Date): number {
+        return this.stepList.findIndex(el => Number(new Date(el.step.date)) === Number(new Date(date)));
+    }
+
+    getStepIndexById(id: number): number {
+        return this.stepList.findIndex(el => el.id === id);
+
+    }
 
 
     deleteStep(id: number) {
-        this.stepList.splice(id, 1);
+        this.stepList.map((el, index) => {
+            if (el.id === id) {
+                this.stepList.splice(index, 1);
+            }
+        })
     };
 
     updateStep(id: number, step: Step) {
-        this.stepList[id].step = step;
+        this.stepList[this.getStepIndexById(id)].step = step;
     };
+
 
 }
