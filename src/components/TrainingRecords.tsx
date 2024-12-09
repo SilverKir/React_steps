@@ -48,9 +48,7 @@ function TrainingRecords() {
                 </div>
             </form>
 
-            <div className={classes["training-records"]}>
-                <TrainingList stepList={step.stepList} />
-            </div>
+            <TrainingList stepList={step.stepList} />
         </div>
     )
 }

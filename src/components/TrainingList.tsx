@@ -38,27 +38,30 @@ function TrainingList(props: { stepList: StepList }) {
 
 
     return (
-        <div>
-
+        <div className={classes["training-records"]}>
             <table>
-                <thead>
+                <thead >
                     <tr>
                         <th>Дата (ДД.ММ.ГГ)</th>
                         <th>Пройдено км</th>
                         <th>Действия</th>
                     </tr>
+
                     {
                         props.stepList.getSortedByDate().map((el) => (
-                            <tr key={el.id}>
+                            <tr key={el.id} className={classes['form-group']}>
                                 <td>{el.step.date.toLocaleDateString()}</td>
                                 <td>{el.step.distance}</td>
-                                <td><button className={classes['button-edit']} type="submit" onClick={() => handleEdit(el.id)}>Edit</button></td>
-                                <td><button className={classes['button-delete']} type="submit" onClick={() => handleDelete(el.id)}>Delete</button></td>
+
+                                <td>
+                                    <button className={classes['button-edit']} type="submit" onClick={() => handleEdit(el.id)}>Edit</button>
+                                    <button className={classes['button-delete']} type="submit" onClick={() => handleDelete(el.id)}>Delete</button>
+                                </td>
                             </tr>
                         ))
                     }
-                </thead>
 
+                </thead>
             </table>
         </div>
 
