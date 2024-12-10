@@ -39,8 +39,10 @@ function TrainingRecords() {
     return (
         <div className={classes["container"]}>
             <form className={classes["main-form"]} onSubmit={handleSubmit}>
-                <label htmlFor="date">Дата (ДД.ММ.ГГ)</label>
-                <label htmlFor="distance">Пройдено км</label>
+                <div className={classes["columns-names"]}>
+                    <label htmlFor="date">Дата (ДД.ММ.ГГ)</label>
+                    <label htmlFor="distance">Пройдено км</label>
+                </div>
                 <div className={classes["form-group"]}>
                     <input type="date" id="date" name="date" />
                     <input type="number" step="0.001" id="distance" name="distance" />

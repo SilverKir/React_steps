@@ -6,6 +6,22 @@
 
 }
 
+label{
+    font-size: 20px;
+    font-weight: 700;
+    width: 170px;
+}
+
+.columns-names{
+    width: 370px;
+    display: flex;
+    justify-content:space-between; 
+    font-size: 20px;
+    font-weight: 700;
+    color: black;
+    margin-bottom: 20px;
+}
+
 .main-form{
     width: 450px;    
 }
